@@ -2,105 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        @yield('title', 'Portfolio Generator')
+        @yield('title', 'Portfolio Template Generator')
     </title>
 
     <link
-        rel="stylesheet"
-        href="{{ asset('css/portfolio.css') }}"
-    >
+    rel="stylesheet"
+    href="/css/portfolio.css"
+>
 </head>
 
 <body>
 
-<nav class="navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
 
-    <div class="nav-container">
-
-        <a
-            href="{{ route('home') }}"
-            class="logo"
-        >
-            Portify
+        <a href="{{ route('home') }}" class="logo">
+            Portfolio Generator
         </a>
 
-        <div class="nav-links">
+        <ul class="nav-links">
+            <li>
+                <a href="{{ route('home') }}">Home</a>
+            </li>
 
-            <a href="{{ route('home') }}">
-                Home
-            </a>
+            <li>
+                <a href="{{ route('portfolios.create') }}">
+                    Create Portfolio
+                </a>
+            </li>
 
-            <a href="{{ route('portfolios.create') }}">
-                Create
-            </a>
+            <li>
+                <a href="{{ route('portfolios.index') }}">
+                    Manage Portfolios
+                </a>
+            </li>
+        </ul>
 
-            <a href="{{ route('portfolios.index') }}">
-                My Portfolios
-            </a>
-
-        </div>
-
-    </div>
-
-</nav>
+    </nav>
 
 
-<main>
-
+    <!-- Success Message -->
     @if(session('success'))
-
-        <div class="alert success">
+        <div class="alert alert-success">
             {{ session('success') }}
         </div>
-
     @endif
 
 
+    <!-- Error Messages -->
     @if($errors->any())
+        <div class="alert alert-error">
 
-        <div class="alert error">
-
-            <strong>
-                Please fix the following:
-            </strong>
+            <strong>Please fix the following errors:</strong>
 
             <ul>
-
                 @foreach($errors->all() as $error)
-
-                    <li>
-                        {{ $error }}
-                    </li>
-
+                    <li>{{ $error }}</li>
                 @endforeach
-
             </ul>
 
         </div>
-
     @endif
 
 
-    @yield('content')
+    <!-- Main Content -->
+    <main>
+        @yield('content')
+    </main>
 
-</main>
 
-
-<footer>
-
-    <p>
-        © {{ date('Y') }} Portify —
-        Online Portfolio Template Generator
-    </p>
-
-</footer>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            &copy; {{ date('Y') }} Portfolio Template Generator
+        </p>
+    </footer>
 
 </body>
 </html>
