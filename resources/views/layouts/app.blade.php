@@ -16,9 +16,7 @@
     <!-- Navigation -->
     <nav class="navbar">
 
-        <a href="{{ route('home') }}" class="logo">
-            Portify
-        </a>
+        <a href="{{ route('home') }}" class="logo">My Portfolio</a>
 
         <ul class="nav-links">
             <li>
