@@ -4,23 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Display all portfolios
+    | Display the logged-in user's portfolios
     |--------------------------------------------------------------------------
     */
 
     public function index()
     {
-        $portfolios = Portfolio::latest()->get();
+        $portfolios = Auth::user()
+            ->portfolios()
+            ->latest()
+            ->get();
 
         return view('portfolios.index', compact('portfolios'));
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -33,10 +36,9 @@ class PortfolioController extends Controller
         return view('portfolios.create');
     }
 
-
     /*
     |--------------------------------------------------------------------------
-    | Save portfolio
+    | Save a new portfolio
     |--------------------------------------------------------------------------
     */
 
@@ -64,50 +66,38 @@ class PortfolioController extends Controller
             'template' => 'nullable|in:simple,modern,creative',
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Upload profile picture
-        |--------------------------------------------------------------------------
-        */
-
         if ($request->hasFile('profile_picture')) {
-            $validated['profile_picture'] =
-                $request->file('profile_picture')->store('profiles', 'public');
+            $validated['profile_picture'] = $request
+                ->file('profile_picture')
+                ->store('profiles', 'public');
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Default template
-        |--------------------------------------------------------------------------
-        */
+        $validated['template'] = $validated['template'] ?? 'simple';
 
-        $validated['template'] = $request->template ?? 'simple';
-
-        /*
-        |--------------------------------------------------------------------------
-        | Create database record
-        |--------------------------------------------------------------------------
-        */
-
-        $portfolio = Portfolio::create($validated);
+        // Associate the portfolio with the logged-in user.
+        $portfolio = Auth::user()
+            ->portfolios()
+            ->create($validated);
 
         return redirect()
             ->route('portfolios.templates', $portfolio)
             ->with('success', 'Portfolio saved successfully!');
     }
 
-
     /*
     |--------------------------------------------------------------------------
-    | Show one portfolio
+    | Show one of the user's portfolios
     |--------------------------------------------------------------------------
     */
 
     public function show(Portfolio $portfolio)
     {
+        $portfolio = Auth::user()
+            ->portfolios()
+            ->findOrFail($portfolio->id);
+
         return view('portfolios.preview', compact('portfolio'));
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -117,18 +107,25 @@ class PortfolioController extends Controller
 
     public function edit(Portfolio $portfolio)
     {
+        $portfolio = Auth::user()
+            ->portfolios()
+            ->findOrFail($portfolio->id);
+
         return view('portfolios.edit', compact('portfolio'));
     }
 
-
     /*
     |--------------------------------------------------------------------------
-    | Update portfolio
+    | Update a portfolio
     |--------------------------------------------------------------------------
     */
 
     public function update(Request $request, Portfolio $portfolio)
     {
+        $portfolio = Auth::user()
+            ->portfolios()
+            ->findOrFail($portfolio->id);
+
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
             'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -152,18 +149,15 @@ class PortfolioController extends Controller
         ]);
 
         if ($request->hasFile('profile_picture')) {
-
             if ($portfolio->profile_picture) {
                 Storage::disk('public')->delete(
                     $portfolio->profile_picture
                 );
             }
 
-            $validated['profile_picture'] =
-                $request->file('profile_picture')->store(
-                    'profiles',
-                    'public'
-                );
+            $validated['profile_picture'] = $request
+                ->file('profile_picture')
+                ->store('profiles', 'public');
         }
 
         $portfolio->update($validated);
@@ -173,15 +167,18 @@ class PortfolioController extends Controller
             ->with('success', 'Portfolio updated successfully!');
     }
 
-
     /*
     |--------------------------------------------------------------------------
-    | Delete portfolio
+    | Delete a portfolio
     |--------------------------------------------------------------------------
     */
 
     public function destroy(Portfolio $portfolio)
     {
+        $portfolio = Auth::user()
+            ->portfolios()
+            ->findOrFail($portfolio->id);
+
         if ($portfolio->profile_picture) {
             Storage::disk('public')->delete(
                 $portfolio->profile_picture
@@ -195,21 +192,20 @@ class PortfolioController extends Controller
             ->with('success', 'Portfolio deleted successfully!');
     }
 
-
     /*
     |--------------------------------------------------------------------------
-    | Template selection
+    | Show template selection
     |--------------------------------------------------------------------------
     */
 
     public function templates(Portfolio $portfolio)
     {
-        return view(
-            'portfolios.templates',
-            compact('portfolio')
-        );
-    }
+        $portfolio = Auth::user()
+            ->portfolios()
+            ->findOrFail($portfolio->id);
 
+        return view('portfolios.templates', compact('portfolio'));
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -221,6 +217,10 @@ class PortfolioController extends Controller
         Request $request,
         Portfolio $portfolio
     ) {
+        $portfolio = Auth::user()
+            ->portfolios()
+            ->findOrFail($portfolio->id);
+
         $request->validate([
             'template' => 'required|in:simple,modern,creative',
         ]);

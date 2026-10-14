@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Portfolio extends Model
 {
     protected $fillable = [
+        'user_id',
         'full_name',
         'profile_picture',
         'email',
@@ -24,4 +27,14 @@ class Portfolio extends Model
         'github',
         'template',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function portfolios(): HasMany
+{
+    return $this->hasMany(Portfolio::class);
+}
 }

@@ -8,10 +8,7 @@
         @yield('title', 'Portfolio Template Generator')
     </title>
 
-    <link
-    rel="stylesheet"
-    href="/css/portfolio.css"
->
+    <link rel="stylesheet" href="{{ asset('css/portfolio.css') }}">
 </head>
 
 <body>
@@ -20,7 +17,7 @@
     <nav class="navbar">
 
         <a href="{{ route('home') }}" class="logo">
-            Portfolio Generator
+            Portify
         </a>
 
         <ul class="nav-links">
@@ -28,17 +25,45 @@
                 <a href="{{ route('home') }}">Home</a>
             </li>
 
-            <li>
-                <a href="{{ route('portfolios.create') }}">
-                    Create Portfolio
-                </a>
-            </li>
+            @guest
+                <li>
+                    <a href="{{ route('login') }}">Login</a>
+                </li>
 
-            <li>
-                <a href="{{ route('portfolios.index') }}">
-                    Manage Portfolios
-                </a>
-            </li>
+                <li>
+                    <a href="{{ route('register') }}">Register</a>
+                </li>
+            @endguest
+
+            @auth
+                <li>
+                    <a href="{{ route('portfolios.create') }}">
+                        Create Portfolio
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('portfolios.index') }}">
+                        Manage Portfolios
+                    </a>
+                </li>
+
+                <li>
+                    <span>Welcome, {{ auth()->user()->name }}</span>
+                </li>
+
+                <li>
+                    <form method="POST"
+                          action="{{ route('logout') }}"
+                          style="display: inline;">
+                        @csrf
+
+                        <button type="submit" class="nav-logout-button">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            @endauth
         </ul>
 
     </nav>
@@ -55,7 +80,6 @@
     <!-- Error Messages -->
     @if($errors->any())
         <div class="alert alert-error">
-
             <strong>Please fix the following errors:</strong>
 
             <ul>
@@ -63,7 +87,6 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
-
         </div>
     @endif
 
@@ -77,9 +100,10 @@
     <!-- Footer -->
     <footer class="footer">
         <p>
-            &copy; {{ date('Y') }} Portfolio Template Generator
+            &copy; {{ date('Y') }} Portify - Portfolio Template Generator
         </p>
     </footer>
 
 </body>
 </html>
+```
