@@ -1,14 +1,26 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\AuthController;
 
+/*
+|--------------------------------------------------------------------------
+| Home
+|--------------------------------------------------------------------------
+| Everyone can view the home page.
+*/
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
 
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes
 |--------------------------------------------------------------------------
+| Only guests can access login and registration.
 */
 
 Route::middleware('guest')->group(function () {
@@ -25,83 +37,49 @@ Route::middleware('guest')->group(function () {
         ->name('login.store');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Logout
+|--------------------------------------------------------------------------
+| Only authenticated users can log out.
+*/
+
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
-
 /*
 |--------------------------------------------------------------------------
-| Home
+| Protected Portfolio Routes
 |--------------------------------------------------------------------------
+| Users must log in before accessing portfolio features.
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/portfolios', [PortfolioController::class, 'index'])
+        ->name('portfolios.index');
 
+    Route::get('/portfolios/create', [PortfolioController::class, 'create'])
+        ->name('portfolios.create');
 
-/*
-|--------------------------------------------------------------------------
-| Portfolio CRUD
-|--------------------------------------------------------------------------
-*/
+    Route::post('/portfolios', [PortfolioController::class, 'store'])
+        ->name('portfolios.store');
 
-Route::get(
-    '/portfolios',
-    [PortfolioController::class, 'index']
-)->name('portfolios.index');
+    Route::get('/portfolios/{portfolio}', [PortfolioController::class, 'show'])
+        ->name('portfolios.show');
 
+    Route::get('/portfolios/{portfolio}/edit', [PortfolioController::class, 'edit'])
+        ->name('portfolios.edit');
 
-Route::get(
-    '/portfolios/create',
-    [PortfolioController::class, 'create']
-)->name('portfolios.create');
+    Route::put('/portfolios/{portfolio}', [PortfolioController::class, 'update'])
+        ->name('portfolios.update');
 
+    Route::delete('/portfolios/{portfolio}', [PortfolioController::class, 'destroy'])
+        ->name('portfolios.destroy');
 
-Route::post(
-    '/portfolios',
-    [PortfolioController::class, 'store']
-)->name('portfolios.store');
+    Route::get('/portfolios/{portfolio}/templates', [PortfolioController::class, 'templates'])
+        ->name('portfolios.templates');
 
-
-Route::get(
-    '/portfolios/{portfolio}',
-    [PortfolioController::class, 'show']
-)->name('portfolios.show');
-
-
-Route::get(
-    '/portfolios/{portfolio}/edit',
-    [PortfolioController::class, 'edit']
-)->name('portfolios.edit');
-
-
-Route::put(
-    '/portfolios/{portfolio}',
-    [PortfolioController::class, 'update']
-)->name('portfolios.update');
-
-
-Route::delete(
-    '/portfolios/{portfolio}',
-    [PortfolioController::class, 'destroy']
-)->name('portfolios.destroy');
-
-
-/*
-|--------------------------------------------------------------------------
-| Template Selection
-|--------------------------------------------------------------------------
-*/
-
-Route::get(
-    '/portfolios/{portfolio}/templates',
-    [PortfolioController::class, 'templates']
-)->name('portfolios.templates');
-
-
-Route::patch(
-    '/portfolios/{portfolio}/template',
-    [PortfolioController::class, 'selectTemplate']
-)->name('portfolios.selectTemplate');
+    Route::patch('/portfolios/{portfolio}/template', [PortfolioController::class, 'selectTemplate'])
+        ->name('portfolios.selectTemplate');
+});
