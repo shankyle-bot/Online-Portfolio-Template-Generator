@@ -2484,5 +2484,34 @@ footer {
     }
 }
 
+/* Validation error messages */
+.form-error,
+.error-message,
+.invalid-feedback {
+    color: #dc2626 !important;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Highlight the input that has an error */
+.portfolio-form input.is-invalid,
+.portfolio-form textarea.is-invalid,
+.portfolio-form select.is-invalid,
+.portfolio-form input:invalid,
+.portfolio-form textarea:invalid,
+.portfolio-form select:invalid {
+    border-color: #dc2626;
+}
+
+.portfolio-form input.is-invalid:focus,
+.portfolio-form textarea.is-invalid:focus,
+.portfolio-form select.is-invalid:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
 
 
