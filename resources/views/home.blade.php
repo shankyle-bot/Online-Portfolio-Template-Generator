@@ -113,6 +113,4 @@
         </article>
     </div>
 </section>
-
 @endsection
-```
