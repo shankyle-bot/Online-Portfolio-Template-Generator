@@ -7,10 +7,7 @@
 <div class="templates-page">
 
     <div class="page-heading center">
-
-        <span>DESIGN</span>
-
-        <h1>
+   <h1>
             Choose Your Template
         </h1>
 

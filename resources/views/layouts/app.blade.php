@@ -12,15 +12,13 @@
 
     {{-- Navigation Bar --}}
     <nav class="navbar">
-        <a href="{{ route('home') }}" class="logo">
+
+        {{-- Portify Logo: visible but does not navigate when clicked --}}
+        <span class="logo">
             Portify
-        </a>
+        </span>
 
         <ul class="nav-links">
-            <li>
-                <a href="{{ route('home') }}">Home</a>
-            </li>
-
             @auth
                 <li>
                     <a href="{{ route('portfolios.create') }}">
@@ -35,7 +33,9 @@
                 </li>
 
                 <li>
-                    <span>Welcome, {{ auth()->user()->name }}</span>
+                    <span class="welcome-text">
+                        Welcome, {{ auth()->user()->name }}
+                    </span>
                 </li>
 
                 <li>
@@ -49,6 +49,7 @@
                 </li>
             @endauth
         </ul>
+
     </nav>
 
     {{-- Success Message --}}
@@ -85,4 +86,3 @@
 
 </body>
 </html>
-```

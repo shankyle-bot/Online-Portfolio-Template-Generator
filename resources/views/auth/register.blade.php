@@ -1,19 +1,33 @@
-
 @extends('layouts.app')
 
 @section('title', 'Register | Portify')
 
 @section('content')
+
 <div class="auth-container">
+
+    {{-- Back to Home Button --}}
+    <div class="back-button-container">
+        <a href="{{ route('home') }}" class="back-button">
+            &larr; Back to Home
+        </a>
+    </div>
+
     <div class="auth-card">
+
         <h1>Create Your Portify Account</h1>
-        <p>Register to start building your professional portfolio.</p>
+
+        <p>
+            Register to start building your professional portfolio.
+        </p>
 
         <form method="POST" action="{{ route('register.store') }}">
             @csrf
 
+            {{-- Full Name --}}
             <div class="auth-form-group">
                 <label for="name">Full Name</label>
+
                 <input
                     id="name"
                     type="text"
@@ -24,8 +38,10 @@
                 >
             </div>
 
+            {{-- Email Address --}}
             <div class="auth-form-group">
                 <label for="email">Email Address</label>
+
                 <input
                     id="email"
                     type="email"
@@ -36,8 +52,10 @@
                 >
             </div>
 
+            {{-- Password --}}
             <div class="auth-form-group">
                 <label for="password">Password</label>
+
                 <input
                     id="password"
                     type="password"
@@ -47,8 +65,12 @@
                 >
             </div>
 
+            {{-- Confirm Password --}}
             <div class="auth-form-group">
-                <label for="password_confirmation">Confirm Password</label>
+                <label for="password_confirmation">
+                    Confirm Password
+                </label>
+
                 <input
                     id="password_confirmation"
                     type="password"
@@ -58,15 +80,20 @@
                 >
             </div>
 
+            {{-- Submit Button --}}
             <button type="submit" class="auth-submit">
                 Create Account
             </button>
+
         </form>
 
+        {{-- Login Link --}}
         <p class="auth-switch">
             Already have an account?
             <a href="{{ route('login') }}">Log in</a>
         </p>
+
     </div>
 </div>
+
 @endsection
