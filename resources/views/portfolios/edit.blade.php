@@ -4,6 +4,18 @@
 @section('title', 'Edit Portfolio | Portify')
 
 @section('content')
+
+@if ($errors->any())
+    <div class="validation-errors" role="alert" aria-live="polite">
+        <strong>Please check the following:</strong>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="form-page edit-portfolio-page">
 
     <div class="page-heading edit-page-heading">
@@ -20,6 +32,13 @@
     >
         @csrf
         @method('PUT')
+
+        {{-- Preserve the current portfolio template --}}
+        <input
+            type="hidden"
+            name="template"
+            value="{{ old('template', $portfolio->template ?? 'simple') }}"
+        >
 
         {{-- 01 Personal Information --}}
         <section class="form-section">
@@ -103,7 +122,11 @@
                         name="profile_picture"
                         accept=".jpg,.jpeg,.png,.webp"
                     >
-                    <small>Choose a new image only if you want to replace the current one.</small>
+
+                    <small>
+                        Choose a new image only if you want to replace the current one.
+                    </small>
+
                     @error('profile_picture')
                         <small class="edit-field-error">{{ $message }}</small>
                     @enderror
@@ -275,7 +298,10 @@
 
         {{-- Save and cancel --}}
         <div class="form-actions edit-form-actions">
-            <a href="{{ route('portfolios.index') }}" class="btn btn-light">
+            <a
+                href="{{ route('portfolios.index') }}"
+                class="btn btn-light"
+            >
                 Cancel
             </a>
 
@@ -283,6 +309,8 @@
                 Save Changes →
             </button>
         </div>
+
     </form>
 </div>
+
 @endsection
