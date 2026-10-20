@@ -56,7 +56,6 @@
     </div>
 </section>
 
-
 {{-- Features Section --}}
 <section class="features features-creative">
     <div class="section-heading">
@@ -115,36 +114,5 @@
     </div>
 </section>
 
-
-{{-- Closing Call to Action --}}
-<section class="closing-cta">
-    <div class="closing-cta-content">
-        <span class="hero-badge">
-            YOUR NEXT CHAPTER STARTS HERE
-        </span>
-
-        <h2>
-            Ready to show the world<br>
-            what you can do?
-        </h2>
-
-        <p>
-            Take the next step toward presenting your skills
-            and achievements professionally.
-        </p>
-
-        @auth
-            <a href="{{ route('portfolios.create') }}"
-               class="btn btn-primary">
-                Create My Portfolio
-            </a>
-        @else
-            <a href="{{ route('register') }}"
-               class="btn btn-primary">
-                Create Your Account
-            </a>
-        @endauth
-    </div>
-</section>
-
 @endsection
+```
