@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,22 +10,16 @@
 </head>
 <body>
 
+    {{-- Navigation Bar --}}
     <nav class="navbar">
-        <a href="{{ route('home') }}" class="logo">Portify</a>
+        <a href="{{ route('home') }}" class="logo">
+            Portify
+        </a>
 
         <ul class="nav-links">
             <li>
                 <a href="{{ route('home') }}">Home</a>
             </li>
-
-            @guest
-                <li>
-                    <a href="{{ route('login') }}">Login</a>
-                </li>
-                <li>
-                    <a href="{{ route('register') }}">Register</a>
-                </li>
-            @endguest
 
             @auth
                 <li>
@@ -34,17 +27,21 @@
                         Create Portfolio
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ route('portfolios.index') }}">
                         My Portfolios
                     </a>
                 </li>
+
                 <li>
                     <span>Welcome, {{ auth()->user()->name }}</span>
                 </li>
+
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
+
                         <button type="submit" class="nav-logout-button">
                             Logout
                         </button>
@@ -54,27 +51,32 @@
         </ul>
     </nav>
 
-    @if(session('success'))
+    {{-- Success Message --}}
+    @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
-    @if($errors->any())
+    {{-- Error Messages --}}
+    @if ($errors->any())
         <div class="alert alert-error">
             <strong>Please fix the following errors:</strong>
+
             <ul>
-                @foreach($errors->all() as $error)
+                @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
 
+    {{-- Main Page Content --}}
     <main>
         @yield('content')
     </main>
 
+    {{-- Footer --}}
     <footer class="footer">
         <p>
             &copy; {{ date('Y') }} Portify - Portfolio Template Generator
@@ -83,3 +85,4 @@
 
 </body>
 </html>
+```
