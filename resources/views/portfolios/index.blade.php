@@ -1,4 +1,3 @@
-```blade
 @extends('layouts.app')
 
 @section('title', 'My Portfolios')
@@ -101,4 +100,3 @@
 </div>
 
 @endsection
-```
