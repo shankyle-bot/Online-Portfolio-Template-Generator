@@ -34,9 +34,23 @@
                 {{ $portfolio->full_name }}
             </h1>
 
-            <p>
-                {{ $portfolio->email }}
-            </p>
+            
+    <p>
+    {{ $portfolio->email }}
+    </p>
+
+    @if($portfolio->contact_number)
+    <p class="creative-contact">
+        {{ $portfolio->contact_number }}
+    </p>
+    @endif
+
+    @if($portfolio->address)
+    <p class="creative-contact">
+        {{ $portfolio->address }}
+    </p>
+    @endif
+
 
         </div>
 

@@ -2513,5 +2513,319 @@ footer {
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
 }
 
+/* ==========================================
+   PORTFOLIO TEMPLATES - WIDTH IMPROVEMENTS
+   Simple, Modern, and Creative
+   ========================================== */
+
+/* SIMPLE TEMPLATE */
+.portfolio-simple .simple-container {
+    width: calc(100% - 40px);
+    max-width: 850px;
+    margin: 35px auto;
+    box-sizing: border-box;
+}
+
+.portfolio-simple .simple-section,
+.portfolio-simple .simple-contact {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+}
+
+/* MODERN TEMPLATE */
+.portfolio-modern .modern-container {
+    width: calc(100% - 40px);
+    max-width: 1000px;
+    margin: 35px auto;
+    box-sizing: border-box;
+}
+
+.portfolio-modern .modern-section,
+.portfolio-modern .modern-card {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+}
+
+/* CREATIVE TEMPLATE */
+.portfolio-creative .creative-container {
+    width: calc(100% - 40px);
+    max-width: 900px;
+    margin: 35px auto;
+    box-sizing: border-box;
+}
+
+.portfolio-creative .creative-section,
+.portfolio-creative .creative-card {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+}
+
+/* Keep long portfolio text inside its sections */
+.portfolio-simple p,
+.portfolio-modern p,
+.portfolio-creative p {
+    overflow-wrap: anywhere;
+    line-height: 1.8;
+}
+
+/* Responsive layout for phones */
+@media (max-width: 600px) {
+    .portfolio-simple .simple-container,
+    .portfolio-modern .modern-container,
+    .portfolio-creative .creative-container {
+        width: calc(100% - 24px);
+        margin: 20px auto;
+    }
+}
+
+/* ========================================
+   SHARED PORTFOLIO LAYOUT
+   ======================================== */
+
+.portfolio-simple,
+.portfolio-modern,
+.portfolio-creative {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-simple *,
+.portfolio-modern *,
+.portfolio-creative * {
+    box-sizing: border-box;
+}
+
+.portfolio-simple p,
+.portfolio-modern p,
+.portfolio-creative p {
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+.portfolio-simple img,
+.portfolio-modern img,
+.portfolio-creative img {
+    max-width: 100%;
+}
+
+/* ========================================
+   SIMPLE TEMPLATE
+   ======================================== */
+
+.portfolio-simple {
+    padding: 32px;
+}
+
+.portfolio-simple .simple-container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.portfolio-simple .simple-section,
+.portfolio-simple .simple-contact {
+    margin: 0 auto 24px;
+    padding: 24px;
+    max-width: 100%;
+}
+
+.portfolio-simple .simple-header {
+    text-align: center;
+}
+
+/* ========================================
+   MODERN TEMPLATE
+   ======================================== */
+
+.portfolio-modern {
+    display: grid;
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+    align-items: start;
+    gap: 30px;
+    padding: 30px;
+}
+
+.portfolio-modern .modern-sidebar {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-modern .modern-content {
+    width: 100%;
+    max-width: 780px;
+    min-width: 0;
+    margin: 0 auto;
+}
+
+.portfolio-modern .modern-heading {
+    margin-bottom: 24px;
+}
+
+.portfolio-modern .modern-card {
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 22px;
+    padding: 24px;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-modern .modern-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.portfolio-modern .modern-grid .modern-card {
+    margin-bottom: 22px;
+}
+
+/* ========================================
+   CREATIVE TEMPLATE
+   ======================================== */
+
+.portfolio-creative {
+    padding: 30px;
+}
+
+.portfolio-creative .creative-top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 35px 20px;
+}
+
+.portfolio-creative .creative-intro {
+    width: 100%;
+    max-width: 650px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-creative .creative-body {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.portfolio-creative .creative-section {
+    display: grid;
+    grid-template-columns: 55px minmax(0, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto 24px;
+    padding: 24px;
+    min-width: 0;
+}
+
+.portfolio-creative .creative-section > div {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.portfolio-creative .creative-section p {
+    max-width: 100%;
+}
+
+.portfolio-creative .creative-links,
+.portfolio-simple .portfolio-actions,
+.portfolio-modern .portfolio-actions,
+.portfolio-creative .portfolio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* ========================================
+   SMALL SCREENS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .portfolio-simple,
+    .portfolio-modern,
+    .portfolio-creative {
+        margin: 15px auto;
+        padding: 18px;
+    }
+
+    .portfolio-modern {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .portfolio-modern .modern-sidebar {
+        text-align: center;
+    }
+
+    .portfolio-modern .modern-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .portfolio-creative .creative-top {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 10px;
+    }
+
+    .portfolio-creative .creative-section {
+        grid-template-columns: 35px minmax(0, 1fr);
+        gap: 12px;
+        padding: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-simple,
+    .portfolio-modern,
+    .portfolio-creative {
+        padding: 12px;
+    }
+
+    .portfolio-simple .simple-section,
+    .portfolio-simple .simple-contact,
+    .portfolio-modern .modern-card {
+        padding: 16px;
+    }
+
+    .portfolio-creative .creative-section {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Balance Education and Skills cards in Modern template */
+.portfolio-modern .modern-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+.portfolio-modern .modern-grid .modern-card {
+    width: 100%;
+    min-width: 0;
+    margin: 0 0 22px;
+    padding: 24px;
+    height: 100%;
+}
+
+/* Stack cards on smaller screens */
+@media (max-width: 768px) {
+    .portfolio-modern .modern-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 
 
